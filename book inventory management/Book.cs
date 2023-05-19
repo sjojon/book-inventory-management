@@ -30,10 +30,31 @@ namespace book_inventory_management
 
         public void AddCopies(int count) //Increases the quantity of the book by the specified count.
         {
+            Quantity += count;
         }
 
         public void SellCopies(int count) //Decreases the quantity of the book by the specified count.
         {
+            Quantity -= count;
+            if (Quantity < 0)
+            {
+                Quantity = 0;
+            }
+        }
+
+        public void UpdateTitle(string newTitle)
+        {
+            Title = newTitle;
+        }
+
+        public void UpdateAuthor(string newAuthor)
+        {
+            Author = newAuthor;
+        }
+
+        public void UpdateGenre(string newGenre)
+        {
+            Genre = newGenre;
         }
     }
 }

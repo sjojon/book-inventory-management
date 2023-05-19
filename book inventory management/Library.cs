@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace book_inventory_management
@@ -30,8 +31,35 @@ namespace book_inventory_management
             books.Add(book);
         }
 
-        public void SellBook(string title, int count)
+        public void SellBook(Book book)
         {
+            books.Remove(book);
+        }
+
+        public int FindBookIndex(string title)
+        {
+            string lowerTitle = title.ToLower();
+            for (int i = 0; i < books.Count; i++)
+            {
+                if (books[i].Title.ToLower() == lowerTitle)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public Book GetBook(int index)
+        {
+            if (index >= 0 && index < books.Count)
+            {
+                return books[index];
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Invalid book index");
+            }
         }
     }
 }
