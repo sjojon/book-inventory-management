@@ -1,9 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Reflection;
-using System.Transactions;
-using static System.Reflection.Metadata.BlobBuilder;
-
-namespace book_inventory_management
+﻿namespace book_inventory_management
 {
     internal class Program
     {
