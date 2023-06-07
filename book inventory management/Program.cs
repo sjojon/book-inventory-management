@@ -24,35 +24,24 @@
                 {
                     switch (answer)
                     {
-                        case 1:
-                            Console.WriteLine(
-                                "Please enter a book to add:");
-                            Console.WriteLine("Title:");
-                            string title = Console.ReadLine();
-                            Console.WriteLine("Author:");
-                            string author = Console.ReadLine();
-                            Console.WriteLine("Genre:");
-                            string genre = Console.ReadLine();
-                            Console.WriteLine("Number of books to add to library:");
-                            int quantity = int.Parse(Console.ReadLine());
-
-                            library.AddBook(new Book(title, author, genre, quantity));
+                        case 1: // Add book
+                            AddBook(library);
 
                             //library.AddBook(new Book(Console.ReadLine(), Console.ReadLine(), Console.ReadLine(),
                             //    int.Parse(Console.ReadLine())));
                             Console.Clear();
                             library.DisplayAllBooks();
                             break;
-                        case 2:
+                        case 2: // Display books
                             Console.Clear();
                             library.DisplayAllBooks();
                             break;
-                        case 3:
+                        case 3: // Edit books
                             Console.Clear();
                             library.DisplayAllBooks();
                             EditMenu(library);
                             break;
-                        case 4:
+                        case 4: //Exit
                             flag = false;
                             break;
                         default:
@@ -65,6 +54,22 @@
                     Console.WriteLine("Please enter a number!");
                 }
             }
+        }
+
+        private static void AddBook(Library library)
+        {
+            Console.WriteLine(
+                "Please enter a book to add:");
+            Console.WriteLine("Title:");
+            string title = Console.ReadLine();
+            Console.WriteLine("Author:");
+            string author = Console.ReadLine();
+            Console.WriteLine("Genre:");
+            string genre = Console.ReadLine();
+            Console.WriteLine("Number of books to add to library:");
+            int quantity = int.Parse(Console.ReadLine());
+
+            library.AddBook(new Book(title, author, genre, quantity));
         }
 
         private static Library Initialize()
@@ -94,77 +99,23 @@
             {
                 switch (answer)
                 {
-                    case 1:
-                        Console.WriteLine("Edit title:");
-                        string newTitle = Console.ReadLine();
-                        book.UpdateTitle(newTitle);
-                        Console.Clear();
-                        book.DisplayBookDetails();
-                        Console.WriteLine("Title updated");
-                        library.DisplayAllBooks();
+                    case 1: // Edit title
+                        EditTitle(library, book);
                         break;
-                    case 2:
-                        Console.WriteLine("Edit Author:");
-                        string newAuthor = Console.ReadLine();
-                        book.UpdateAuthor(newAuthor);
-                        Console.Clear();
-                        book.DisplayBookDetails();
-                        Console.WriteLine("Author updated");
-                        library.DisplayAllBooks();
+                    case 2: // Edit author
+                        EditAuthor(library, book);
                         break;
-                    case 3:
-                        Console.WriteLine("Edit genre:");
-                        string newGenre = Console.ReadLine();
-                        book.UpdateGenre(newGenre);
-                        Console.Clear();
-                        book.DisplayBookDetails();
-                        Console.WriteLine("Genre updated");
-                        library.DisplayAllBooks();
+                    case 3: // Edit genre
+                        EditGenre(library, book);
                         break;
-                    case 4:
-                        Console.WriteLine("Enter the number of copies to add:");
-                        string addCopies = Console.ReadLine();
-                        int addCount = Convert.ToInt32(addCopies);
-                        book.AddCopies(addCount);
-                        Console.Clear();
-                        book.DisplayBookDetails();
-                        Console.WriteLine("Book bought and added to library");
-                        library.DisplayAllBooks();
+                    case 4: // Number of copies to add
+                        NumberOfCopiesToAdd(library, book);
                         break;
-                    case 5:
-                        Console.WriteLine("Enter the number of copies to sell:");
-                        string sellCopies = Console.ReadLine();
-                        int sellCount = Convert.ToInt32(sellCopies);
-
-                        while (sellCount > book.Quantity)
-                        {
-                            Console.WriteLine("You can't sell more books than currently in inventory!");
-                            Console.WriteLine("Enter a valid number to sell:");
-                            sellCopies = Console.ReadLine();
-                            sellCount = Convert.ToInt32(sellCopies);
-                        }
-
-                        book.SellCopies(sellCount);
-                        Console.Clear();
-
-                        if (book.Quantity == 0)
-                        {
-                            library.SellBook(book);
-                            Console.WriteLine("You sold all copies of this book!");
-                        }
-
-                        Console.WriteLine("Book(s) sold and removed from library");
-                        book.DisplayBookDetails();
-                        library.DisplayAllBooks();
+                    case 5: // Number of copies to sell
+                        NumberOfCopiesToSell(library, book);
                         break;
-                    case 6:
-                        library.SellBook(book);
-                        book.DisplayBookDetails();
-                        Console.Clear();
-                        Console.WriteLine();
-                        Console.WriteLine("ALL BOOKS SOLD!");
-                        Console.WriteLine();
-                        library.DisplayAllBooks();
+                    case 6: // Sell all books
+                        SellAllBooks(library, book);
                         break;
                     default:
                         Console.WriteLine("Invalid choice");
@@ -176,6 +127,90 @@
             {
                 Console.WriteLine("Please enter a number!");
             }
+        }
+
+        private static void SellAllBooks(Library library, Book book)
+        {
+            library.SellBook(book);
+            book.DisplayBookDetails();
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("ALL BOOKS SOLD!");
+            Console.WriteLine();
+            library.DisplayAllBooks();
+        }
+
+        private static void NumberOfCopiesToSell(Library library, Book book)
+        {
+            Console.WriteLine("Enter the number of copies to sell:");
+            string sellCopies = Console.ReadLine();
+            int sellCount = Convert.ToInt32(sellCopies);
+
+            while (sellCount > book.Quantity)
+            {
+                Console.WriteLine("You can't sell more books than currently in inventory!");
+                Console.WriteLine("Enter a valid number to sell:");
+                sellCopies = Console.ReadLine();
+                sellCount = Convert.ToInt32(sellCopies);
+            }
+
+            book.SellCopies(sellCount);
+            Console.Clear();
+
+            if (book.Quantity == 0)
+            {
+                library.SellBook(book);
+                Console.WriteLine("You sold all copies of this book!");
+            }
+
+            Console.WriteLine("Book(s) sold and removed from library");
+            book.DisplayBookDetails();
+            library.DisplayAllBooks();
+        }
+
+        private static void NumberOfCopiesToAdd(Library library, Book book)
+        {
+            Console.WriteLine("Enter the number of copies to add:");
+            string addCopies = Console.ReadLine();
+            int addCount = Convert.ToInt32(addCopies);
+            book.AddCopies(addCount);
+            Console.Clear();
+            book.DisplayBookDetails();
+            Console.WriteLine("Book bought and added to library");
+            library.DisplayAllBooks();
+        }
+
+        private static void EditGenre(Library library, Book book)
+        {
+            Console.WriteLine("Edit genre:");
+            string newGenre = Console.ReadLine();
+            book.UpdateGenre(newGenre);
+            Console.Clear();
+            book.DisplayBookDetails();
+            Console.WriteLine("Genre updated");
+            library.DisplayAllBooks();
+        }
+
+        private static void EditAuthor(Library library, Book book)
+        {
+            Console.WriteLine("Edit Author:");
+            string newAuthor = Console.ReadLine();
+            book.UpdateAuthor(newAuthor);
+            Console.Clear();
+            book.DisplayBookDetails();
+            Console.WriteLine("Author updated");
+            library.DisplayAllBooks();
+        }
+
+        private static void EditTitle(Library library, Book book)
+        {
+            Console.WriteLine("Edit title:");
+            string newTitle = Console.ReadLine();
+            book.UpdateTitle(newTitle);
+            Console.Clear();
+            book.DisplayBookDetails();
+            Console.WriteLine("Title updated");
+            library.DisplayAllBooks();
         }
     }
 }
