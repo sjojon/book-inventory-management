@@ -66,18 +66,33 @@
             string author = Console.ReadLine();
             Console.WriteLine("Genre:");
             string genre = Console.ReadLine();
+
+            Book book = new Book(title, author, genre);
+            library.AddBook(book);
+
             Console.WriteLine("Number of books to add to library:");
             int quantity = int.Parse(Console.ReadLine());
 
-            library.AddBook(new Book(title, author, genre, quantity));
+            library.AddCopies(book, quantity);
         }
 
         private static Library Initialize()
         {
             Library library = new();
-            library.AddBook(new Book("Lord of the Rings", "J.R.R. Tolkien", "Fantasy", 3));
-            library.AddBook(new Book("Narnia", "C. S. Lewis", "Fantasy", 4));
-            library.AddBook(new Book("The Name of the Wind", "Patrick Rothfuss", "Fantasy", 2));
+            //library.AddBook(new Book("Lord of the Rings", "J.R.R. Tolkien", "Fantasy"));
+            //library.AddBook(new Book("Narnia", "C. S. Lewis", "Fantasy"));
+            //library.AddBook(new Book("The Name of the Wind", "Patrick Rothfuss", "Fantasy"));
+            Book book1 = new Book("Lord of the Rings", "J.R.R. Tolkien", "Fantasy");
+            library.AddBook(book1);
+            library.AddCopies(book1, 3);
+
+            Book book2 = new Book("Narnia", "C. S. Lewis", "Fantasy");
+            library.AddBook(book2);
+            library.AddCopies(book2, 4);
+
+            Book book3 = new Book("The Name of the Wind", "Patrick Rothfuss", "Fantasy");
+            library.AddBook(book3);
+            library.AddCopies(book3, 2);
             return library;
         }
 
@@ -154,7 +169,7 @@
                 sellCount = Convert.ToInt32(sellCopies);
             }
 
-            book.SellCopies(sellCount);
+            library.SellCopies(book, sellCount);
             Console.Clear();
 
             if (book.Quantity == 0)
@@ -173,7 +188,7 @@
             Console.WriteLine("Enter the number of copies to add:");
             string addCopies = Console.ReadLine();
             int addCount = Convert.ToInt32(addCopies);
-            book.AddCopies(addCount);
+            library.AddCopies(book, addCount);
             Console.Clear();
             book.DisplayBookDetails();
             Console.WriteLine("Book bought and added to library");
