@@ -1,10 +1,13 @@
 ﻿namespace book_inventory_management
 {
-    internal class Book
+    public class Book
     {
         public string Title { get; set; }
         public string Author { get; set; }
         public string Genre { get; set; }
+
+        public int Id { get; set; }
+        public static int NextId { get; set; } = 0;
         public Library Library { get; set; }
 
         public int Quantity
@@ -25,6 +28,8 @@
             Title = newTitle;
             Author = newAuthor;
             Genre = newGenre;
+            Id = NextId;
+            NextId++;
         }
 
         public void DisplayBookDetails() //Displays the details of the book (title, author, genre, quantity).

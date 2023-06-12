@@ -1,6 +1,6 @@
 ﻿namespace book_inventory_management
 {
-    internal class Library
+    public class Library
     {
         private List<Book> books;
         public Dictionary<Book, int> numberOfBooks;

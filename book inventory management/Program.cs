@@ -103,7 +103,12 @@
             Console.Clear();
             int index = library.FindBookIndex(getIndex);
 
-            if (index == -1) return;
+            if (index == -1)
+            {
+                Console.WriteLine("Please check the spelling");
+                return;
+            }
+
             Book book = library.GetBook(index);
             book.DisplayBookDetails();
             Console.WriteLine(
