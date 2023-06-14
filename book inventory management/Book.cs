@@ -35,7 +35,8 @@
         public void DisplayBookDetails() //Displays the details of the book (title, author, genre, quantity).
         {
             Console.WriteLine(
-                $"Title: {Title}\nAuthor: {Author}\nGenre: {Genre}\nNumber of books in library: {Quantity}\n");
+                $"Title: {Title}\nAuthor: {Author}\nGenre: {Genre}\nNumber of books in library: {Quantity}\nID: {Id}");
+            Console.WriteLine();
         }
 
         public void UpdateTitle(string newTitle)
